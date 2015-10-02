@@ -83,7 +83,14 @@
                     console.log($('.mdl-cls').focus());
                 }, 1000);
             }
-            
+
+            if(window.isPhoneOnly() && window.isIosOnly()) {
+                $('#sm-container').addClass('ios-force-hide');
+                if(cordova && cordova.plugins.iosrtc) {
+                    cordova.plugins.iosrtc.refreshVideos();
+                }
+            }
+
         },
         _closeModal: function(){
             this.closeModal();
@@ -97,6 +104,13 @@
 
             window.kb.modalFlag = undefined;
             window.kb.modalEvents.off('closeModal');
+
+            if(window.isPhoneOnly() && window.isIosOnly()) {
+                $('#sm-container').removeClass('ios-force-hide');
+                if(cordova && cordova.plugins.iosrtc) {
+                    cordova.plugins.iosrtc.refreshVideos();
+                }
+            }
     	}
   	});
 
