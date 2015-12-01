@@ -1,6 +1,7 @@
 (function(){
 
     var events = Backbone.Model.extend({});
+    window.kb = window.kb || {};
     window.kb.modalEvents = new events;
     
     var Modal = function(options) {
