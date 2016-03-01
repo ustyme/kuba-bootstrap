@@ -85,7 +85,7 @@
                 }, 1000);
             }
 
-            if(window.isPhoneOnly() && window.isIosOnly()) {
+            if(window.ustyme.is_phone_only && window.ustyme.is_ios_only) {
                 $('#sm-container').addClass('ios-force-hide');
                 if(cordova && cordova.plugins.iosrtc) {
                     cordova.plugins.iosrtc.refreshVideos();
@@ -106,7 +106,7 @@
             window.kb.modalFlag = undefined;
             window.kb.modalEvents.off('closeModal');
 
-            if(window.isPhoneOnly() && window.isIosOnly()) {
+            if(window.ustyme.is_phone_only && window.ustyme.is_ios_only) {
                 $('#sm-container').removeClass('ios-force-hide');
                 if(cordova && cordova.plugins.iosrtc) {
                     cordova.plugins.iosrtc.refreshVideos();

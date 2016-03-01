@@ -82,7 +82,9 @@
             // Without this off(), if a user clicks too fast, the page may
             // be hidden
             // TODO Trigger a slideEnd if there was a transition in progress
-            next.off(this.transitionEvents, transitionEnd);
+            if(next){
+                next.off(this.transitionEvents, transitionEnd);
+            }
 
             // Hide all elements that are no last or next
             // TODO There should be an easier way to tell if there are active
@@ -118,7 +120,9 @@
             // this callback will fire once for *each* of the prefixed
             // transitionend event names (for instance, chrome fires both
             // a "transitionend" and "webkitTransitionEnd")
-            last.one(this.transitionEvents, transitionEnd);
+            if(last){
+                last.one(this.transitionEvents, transitionEnd);
+            }
 
             // Start the new transition
             // this is waiting to run the self.move() to allow the self.reset() to 
@@ -155,8 +159,10 @@
                 lastCSS[this._prefixes[i] + 'transform'] = lastTranslate;
             }
 
-            next.removeClass('fx').css(nextCSS).show();
-            last.removeClass('fx').css(lastCSS).show();
+            if(next && last){
+                next.removeClass('fx').css(nextCSS).show();
+                last.removeClass('fx').css(lastCSS).show();
+            }
         },
         move: function(last, lastLeft, lastOpacity, next, nextLeft, nextOpacity) {
             var nextTranslate = this._buildTranslate(nextLeft);
@@ -175,9 +181,10 @@
                 nextCSS[this._prefixes[i] + 'transform'] = nextTranslate;
                 lastCSS[this._prefixes[i] + 'transform'] = lastTranslate;
             }
-
-            next.addClass('fx').css(nextCSS).show();
-            last.addClass('fx').css(lastCSS).show();
+            if(next && last){
+                next.addClass('fx').css(nextCSS).show();
+                last.addClass('fx').css(lastCSS).show();
+            }
         },
     });
 
