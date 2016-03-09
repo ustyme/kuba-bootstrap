@@ -8,7 +8,7 @@ var swipeFlag = false;
         upEventS = 'touchend ' + 'mouseup ';
 
     $.fn.swipe = function(){
-        var args = arguments[0] || { swipeTime: 900, swipeX: 200, left: left, right: right, leftProp: null, rightProp: null };
+        var args = arguments[0] || { swipeTime: 900, swipeXleft: 275, swipeXright: 200, left: left, right: right, leftProp: null, rightProp: null };
 
         var startX = 0,
             startTime = 0;
@@ -28,31 +28,28 @@ var swipeFlag = false;
                 var currentX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX,
                     currentDistance = (startX === 0) ? 0 : Math.abs(currentX - startX),
                     currentTime = e.timeStamp;
-                if (startTime !== 0 && currentTime - startTime < args.swipeTime && currentDistance > args.swipeX) {
-                    if (currentX < startX) {
+                if (startTime !== 0 && currentTime - startTime < args.swipeTime ) {
+
+                    if (currentDistance > args.swipeXleft && currentX < startX) {
                         e.preventDefault();
-
-                        swipeFlag = true;
-
-                        if(args.leftProp != null){
+                        if (args.leftProp != null) {
                             args.left(args.leftProp);
-                        }else{
-                            args.left();   
+                        } else {
+                            args.left();
                         }
+                        startTime = 0;
+                        startX = 0;
                     }
-                    if (currentX > startX) {
+                    else if (currentDistance > args.swipeXright && currentX > startX) {
                         e.preventDefault();
-
-                        swipeFlag = true;
-
-                        if(args.rightProp != null){
+                        if (args.rightProp != null) {
                             args.right(args.rightProp);
-                        }else{
+                        } else {
                             args.right();
                         }
+                        startTime = 0;
+                        startX = 0;
                     }
-                    startTime = 0;
-                    startX = 0;
                 }
             });
 
